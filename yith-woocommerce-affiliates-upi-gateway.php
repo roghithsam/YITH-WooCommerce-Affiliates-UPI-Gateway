@@ -1,5 +1,19 @@
 <?php
+/*
+Plugin Name: YITH WooCommerce Affiliates UPI Gateway
+Description: This code adds UPI (Google Pay, PhonePe, Amazon Pay, etc) as a payment method for YITH WooCommerce Affiliates.
+Version: 1.0
+Author: Roghithsam
+*/
+
+
+if ( ! defined( 'ABSPATH' ) ) {
+   die( 'Invalid request.' );
+}
+
+
 //Yith
+if (defined( 'YITH_WCAF' ) ) {
 function add_upi_payment_method($gateways) {
     $gateways[] = 'upi'; // Adding UPI payment method
     return $gateways;
@@ -12,6 +26,11 @@ if ( ! class_exists( 'YITH_WCAF_UPI_Gateway' ) ) {
      *
      * @since 1.0.0
      */
+    if ( ! class_exists( 'YITH_WCAF_Abstract_Gateway' ) ) {
+        require_once YITH_WCAF_INC . 'abstracts/class-yith-wcaf-abstract-gateway.php';
+    }
+
+
     class YITH_WCAF_UPI_Gateway extends YITH_WCAF_Abstract_Gateway {
 
         /**
@@ -149,4 +168,6 @@ if ( ! class_exists( 'YITH_WCAF_UPI_Gateway' ) ) {
             );
         }
     }
+}
+
 }
